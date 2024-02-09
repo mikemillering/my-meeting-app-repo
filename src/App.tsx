@@ -75,6 +75,7 @@ function App() {
           <p className="m-0" style={{ fontSize: "10px" }}>
             {" Duration: " + item[1] + " seconds"}
           </p>
+          (countdown progress bar here)
         </div>
       ));
       setMeetingDisplay(meetingItems);
@@ -98,6 +99,12 @@ function App() {
 
   return (
     <div className="container">
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container bg-dark bg-gradient rounded text-white">
+          <h1 className="display-4">Meeting App</h1>
+          <p className="lead">It makes meetings end ontime.</p>
+        </div>
+      </div>
       {listToggle ? (
         <div className="card p-2 m-2">
           <input
