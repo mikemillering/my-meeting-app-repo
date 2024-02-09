@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
 function App() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<[string, number][]>([]);
   const [itemInput, setItemInput] = useState("");
   const [durationInput, setDurationInput] = useState("");
   const [display, setDisplay] = useState(<></>);
   const [updateDisplay, setUpdateDisplay] = useState(true);
-  const [meetingDisplay, setMeetingDisplay] = useState(<></>);
+  const [meetingDisplay, setMeetingDisplay] = useState([<></>]);
   const [startToggle, setStartToggle] = useState(false);
   const [listToggle, setListToggle] = useState(true);
 
@@ -58,7 +58,7 @@ function App() {
     }
   }
 
-  function removeItem(key) {
+  function removeItem(key: number) {
     const updatedList = [...list];
     updatedList.splice(key, 1);
     setList(updatedList);
@@ -81,16 +81,16 @@ function App() {
       setMeetingDisplay(meetingItems);
       setListToggle(!listToggle);
     } else {
-      setMeetingDisplay("");
+      setMeetingDisplay([<></>]);
       setListToggle(!listToggle);
     }
   }
 
-  function handleItemInput(e) {
+  function handleItemInput(e: ChangeEvent<HTMLInputElement>) {
     setItemInput(e.target.value);
   }
 
-  function handleDurationInput(e) {
+  function handleDurationInput(e: ChangeEvent<HTMLInputElement>) {
     const re = /^[0-9\b]+$/;
     if (e.target.value === "" || re.test(e.target.value)) {
       setDurationInput(e.target.value);
