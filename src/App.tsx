@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import ProgressBar from './components/ProgressBar';
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
@@ -27,7 +28,7 @@ function App() {
             </div>
             <div className="col-4">
               <button
-                className="btn btn-sm btn-outline-secondary p-1 mt-1"
+                className="btn btn-sm bg-dark bg-gradient text-white p-1 mt-1 blue-button"
                 onClick={() => {
                   removeItem(key);
                 }}
@@ -68,16 +69,32 @@ function App() {
   function startMeeting() {
     if (listToggle === true) {
       const meetingItems = list.map((item, key) => (
-        <div className="pt-1 pb-0 m-0" key={key}>
+        <div className=" card pt-1 pb-0 m-1" key={key}>
+          <div className="row">
+          <div className="col-6">
           <p className="m-0" style={{ fontSize: "15px" }}>
             {item[0]}
           </p>
+          </div>
+          <div className="col-4">
           <p className="m-0" style={{ fontSize: "10px" }}>
             {" Duration: " + item[1] + " seconds"}
           </p>
-          (countdown progress bar here)
+          </div>
+          <div className="col-2">
+          <button className="btn btn-sm bg-dark bg-gradient text-white blue-button">+Task</button>
+          </div>
+          
+          </div>
+          <div className="row">
+            <div className="col">
+          <p>(countdown progress bar here)</p>
+          </div>
+          
+          </div>
         </div>
       ));
+      console.log(list[0][1])
       setMeetingDisplay(meetingItems);
       setListToggle(!listToggle);
     } else {
@@ -97,12 +114,14 @@ function App() {
     }
   }
 
+  let testnumber = 5;
+
   return (
     <div className="container">
       <div className="jumbotron jumbotron-fluid">
         <div className="container bg-dark bg-gradient rounded text-white">
           <h1 className="display-4">Meeting App</h1>
-          <p className="lead">It makes meetings end ontime.</p>
+          <p className="lead">It makes meetings end on time.</p>
         </div>
       </div>
       {listToggle ? (
@@ -121,21 +140,33 @@ function App() {
             placeholder="Duration"
             onChange={handleDurationInput}
           />
-          <button className="btn btn-outline-secondary" onClick={addItem}>
+          <button className="btn bg-dark bg-gradient text-white blue-button" onClick={addItem}>
             Add
           </button>
         </div>
       ) : null}
       <div className=" p-2 m-2">{listToggle ? display : null}</div>
       <div className="p-2 m-2">
-        <button
-          className="btn btn-outline-secondary start-button mb-2"
+          {startToggle ? <button
+          className="btn bg-dark bg-gradient text-white red-button mb-2"
           onClick={startMeeting}
         >
-          {startToggle ? "End Meeting" : "Start Meeting"}
+End Meeting
         </button>
+        : <button
+        className="btn bg-dark bg-gradient text-white green-button mb-2"
+        onClick={startMeeting}
+      >
+Start Meeting
+      </button>
+}
+
         {meetingDisplay}
       </div>
+      <div className="App">
+      <h1>Progress Bar Demo</h1>
+      <ProgressBar duration={testnumber} meetingDisplay={meetingDisplay} />
+    </div>
     </div>
   );
 }
